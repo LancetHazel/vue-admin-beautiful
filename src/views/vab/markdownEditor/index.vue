@@ -30,8 +30,8 @@
     components: { VabMarkdownEditor },
     data() {
       return {
-        value: '# vue-admin-beautiful',
-        html: '<h1 id="vue-admin-beautiful">vue-admin-beautiful</h1>',
+        value: '# NJUSE Scheduler',
+        html: '<h1 id="vue-admin-beautiful">NJUSE Scheduler</h1>',
       }
     },
     methods: {

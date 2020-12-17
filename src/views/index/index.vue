@@ -8,16 +8,55 @@
           >
             <a
               target="_blank"
-              href="https://github.com/chuzhixin/vue-admin-beautiful"
-            >
-              <img
-                style="margin-right: 10px"
-                src="https://img.shields.io/github/stars/chuzhixin/vue-admin-beautiful?style=flat-square&label=Stars&logo=github"
-              />
-            </a>
+              href="https://github.com/LancetHazel/vue-admin-beautiful/tree/yyy"
+            ></a>
             {{ noticeList[0].title }}
           </div>
         </el-alert>
+      </el-col>
+      <el-col :xs="24" :sm="24" :md="24" :lg="11" :xl="11">
+        <el-card shadow="never">
+          <div slot="header">
+            <span>订单按期完成情况概览</span>
+          </div>
+          <div style="text-align: center">
+            <el-progress
+              type="circle"
+              style="size: 200px"
+              :percentage="70"
+              status="success"
+            ></el-progress>
+          </div>
+          <div v-for="(item, index) in noticeList" :key="index">
+            <el-alert
+              v-if="index !== 0"
+              :title="item.title"
+              :type="item.type"
+              :closable="item.closable"
+            ></el-alert>
+            <br/>
+          </div>
+          <br/>
+        </el-card>
+      </el-col>
+      <el-col
+        v-for="(item, index) in iconList"
+        :key="index"
+        :xs="12"
+        :sm="6"
+        :md="3"
+        :lg="3"
+        :xl="3"
+      >
+        <router-link :to="item.link" target="_blank">
+          <el-card class="icon-panel" shadow="never">
+            <vab-icon
+              :style="{ color: item.color }"
+              :icon="['fas', item.icon]"
+            ></vab-icon>
+            <p>{{ item.title }}</p>
+          </el-card>
+        </router-link>
       </el-col>
       <el-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
         <el-card shadow="never">
@@ -72,147 +111,6 @@
           </div>
         </el-card>
       </el-col>
-
-      <el-col
-        v-for="(item, index) in iconList"
-        :key="index"
-        :xs="12"
-        :sm="6"
-        :md="3"
-        :lg="3"
-        :xl="3"
-      >
-        <router-link :to="item.link" target="_blank">
-          <el-card class="icon-panel" shadow="never">
-            <vab-icon
-              :style="{ color: item.color }"
-              :icon="['fas', item.icon]"
-            ></vab-icon>
-            <p>{{ item.title }}</p>
-          </el-card>
-        </router-link>
-      </el-col>
-
-      <el-col :xs="24" :sm="24" :md="24" :lg="11" :xl="11">
-        <el-card class="card" shadow="never">
-          <div slot="header">
-            <span>依赖信息</span>
-            <div style="float: right">部署时间:{{ updateTime }}</div>
-          </div>
-          <div class="bottom-btn">
-            <el-popover placement="top" width="250" trigger="hover">
-              <p>
-                这是一个付费群，谢谢您愿意支持开源，加群获取详细文档，群内提供vue-admin-beautiful-template基础模板
-              </p>
-              <el-image :src="require('@/assets/ewm.png')"></el-image>
-              <a slot="reference" target="_blank">
-                <el-button type="primary">QQ讨论群</el-button>
-              </a>
-            </el-popover>
-            <a @click="handleChangeTheme">
-              <el-button type="danger">修改主题和布局</el-button>
-            </a>
-            <a
-              target="_blank"
-              href="https://github.com/chuzhixin/vue-admin-beautiful"
-            >
-              <el-button type="warning">
-                github下载源码点star（实时更新）
-              </el-button>
-            </a>
-            <a
-              target="_blank"
-              href="https://gitee.com/chu1204505056/vue-admin-beautiful"
-            >
-              <el-button type="warning">码云下载源码点star</el-button>
-            </a>
-            <el-popover placement="top" width="250" trigger="hover">
-              <p>谢谢您愿意支持开源，加群获取文档，群内提供基础模板</p>
-              <el-image :src="require('@/assets/ewm.png')"></el-image>
-              <a slot="reference" target="_blank">
-                <el-button type="warning">文档</el-button>
-              </a>
-            </el-popover>
-          </div>
-          <table class="table">
-            <tr>
-              <td>@vue/cli版本</td>
-              <td>{{ devDependencies['@vue/cli-service'] }}</td>
-              <td>vue版本</td>
-              <td>{{ dependencies['vue'] }}</td>
-            </tr>
-            <tr>
-              <td>vuex版本</td>
-              <td>{{ dependencies['vuex'] }}</td>
-              <td>vue-router版本</td>
-              <td>{{ dependencies['vue-router'] }}</td>
-            </tr>
-            <tr>
-              <td>element-ui版本</td>
-              <td>{{ dependencies['element-ui'] }}</td>
-              <td>axios版本</td>
-              <td>{{ dependencies['axios'] }}</td>
-            </tr>
-            <tr>
-              <td>eslint版本</td>
-              <td>{{ devDependencies['eslint'] }}</td>
-              <td>prettier版本</td>
-              <td>{{ devDependencies['prettier'] }}</td>
-            </tr>
-            <tr>
-              <td>sass版本</td>
-              <td>{{ devDependencies['sass'] }}</td>
-              <td>mockjs版本</td>
-              <td>{{ dependencies['mockjs'] }}</td>
-            </tr>
-            <tr>
-              <td>zx-layouts版本</td>
-              <td>{{ dependencies['zx-layouts'] }}</td>
-              <td>lodash版本</td>
-              <td>{{ dependencies['lodash'] }}</td>
-            </tr>
-          </table>
-        </el-card>
-
-        <el-card shadow="never">
-          <div slot="header">
-            <span>其他信息</span>
-          </div>
-          <div style="text-align: center">
-            <vab-colorful-icon style="font-size: 140px" icon-class="vab" />
-            <h1 style="font-size: 30px">vue-admin-beautiful</h1>
-          </div>
-          <div v-for="(item, index) in noticeList" :key="index">
-            <el-alert
-              v-if="index !== 0"
-              :title="item.title"
-              :type="item.type"
-              :closable="item.closable"
-            ></el-alert>
-            <br />
-          </div>
-          <el-alert :closable="false" :title="userAgent" type="info"></el-alert>
-          <br />
-        </el-card>
-      </el-col>
-
-      <el-col :xs="24" :sm="24" :md="13" :lg="13" :xl="13">
-        <el-card class="card" shadow="never">
-          <div slot="header">
-            <span>更新日志</span>
-          </div>
-          <el-timeline :reverse="reverse">
-            <el-timeline-item
-              v-for="(activity, index) in activities"
-              :key="index"
-              :timestamp="activity.timestamp"
-              :color="activity.color"
-            >
-              {{ activity.content }}
-            </el-timeline-item>
-          </el-timeline>
-        </el-card>
-      </el-col>
     </el-row>
   </div>
 </template>
@@ -222,7 +120,8 @@
   import { dependencies, devDependencies } from '../../../package.json'
   import { getList } from '@/api/changeLog'
   import { getNoticeList } from '@/api/notice'
-  import { getRepos, getStargazers } from '@/api/github'
+  import {getRepos, getStargazers} from '@/api/github'
+  import getFinishRate from '@/utils/finishRate'
   export default {
     name: 'Index',
     components: {

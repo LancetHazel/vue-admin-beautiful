@@ -87,7 +87,7 @@
         layout: 'settings/layout',
         header: 'settings/header',
         tabsBar: 'settings/tabsBar',
-        themeBar: 'settings/themeBar',
+        //themeBar: 'settings/themeBar',
       }),
     },
     created() {

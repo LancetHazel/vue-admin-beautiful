@@ -75,7 +75,7 @@ router.beforeResolve(async (to, from, next) => {
       if (progressBar) VabProgress.done()
     }
   }
-  document.title = getPageTitle(to.meta.title)
+  document.title = 'NJUSE Scheduler'
 })
 router.afterEach(() => {
   if (progressBar) VabProgress.done()

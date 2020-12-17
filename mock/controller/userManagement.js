@@ -2,7 +2,7 @@ const totalCount = 3
 const List = [
   {
     id: '@id',
-    username: 'admin',
+    username: '您好',
     password: 'admin',
     email: '@email',
     permissions: ['admin'],
