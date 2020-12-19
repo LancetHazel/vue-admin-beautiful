@@ -14,18 +14,13 @@
           </div>
         </el-alert>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="24" :lg="11" :xl="11">
+      <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         <el-card shadow="never">
           <div slot="header">
             <span>订单按期完成情况概览</span>
           </div>
           <div style="text-align: center">
-            <el-progress
-              type="circle"
-              style="size: 200px"
-              :percentage="70"
-              status="success"
-            ></el-progress>
+            <el-progress type="circle" :percentage="finishRate"></el-progress>
           </div>
           <div v-for="(item, index) in noticeList" :key="index">
             <el-alert
@@ -39,29 +34,10 @@
           <br/>
         </el-card>
       </el-col>
-      <el-col
-        v-for="(item, index) in iconList"
-        :key="index"
-        :xs="12"
-        :sm="6"
-        :md="3"
-        :lg="3"
-        :xl="3"
-      >
-        <router-link :to="item.link" target="_blank">
-          <el-card class="icon-panel" shadow="never">
-            <vab-icon
-              :style="{ color: item.color }"
-              :icon="['fas', item.icon]"
-            ></vab-icon>
-            <p>{{ item.title }}</p>
-          </el-card>
-        </router-link>
-      </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
+      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <el-card shadow="never">
           <div slot="header">
-            <span>访问量</span>
+            <span>出货量</span>
           </div>
           <vab-chart
             :autoresize="true"
@@ -70,7 +46,7 @@
           />
           <div class="bottom">
             <span>
-              日均访问量:
+              日均出货量:
 
               <vab-count
                 :start-val="config1.startVal"
@@ -85,32 +61,52 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
-        <el-card shadow="never">
-          <div slot="header">
-            <span>授权数</span>
-          </div>
-          <vab-chart
-            :autoresize="true"
-            theme="vab-echarts-theme"
-            :options="sqs"
-          />
-          <div class="bottom">
-            <span>
-              总授权数:
-              <vab-count
-                :start-val="config2.startVal"
-                :end-val="config2.endVal"
-                :duration="config2.duration"
-                :separator="config2.separator"
-                :prefix="config2.prefix"
-                :suffix="config2.suffix"
-                :decimals="config2.decimals"
-              />
-            </span>
-          </div>
-        </el-card>
+      <el-col
+        v-for="(item, index) in iconList"
+        :key="index"
+        :xs="12"
+        :sm="6"
+        :md="3"
+        :lg="3"
+        :xl="3"
+      >
+        <router-link :to="item.link">
+          <el-card class="icon-panel" shadow="never">
+            <vab-icon
+              :style="{ color: item.color }"
+              :icon="['fas', item.icon]"
+            ></vab-icon>
+            <p>{{ item.title }}</p>
+          </el-card>
+        </router-link>
       </el-col>
+
+      <!--      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">-->
+      <!--        <el-card shadow="never">-->
+      <!--          <div slot="header">-->
+      <!--            <span>授权数</span>-->
+      <!--          </div>-->
+      <!--          <vab-chart-->
+      <!--            :autoresize="true"-->
+      <!--            theme="vab-echarts-theme"-->
+      <!--            :options="sqs"-->
+      <!--          />-->
+      <!--          <div class="bottom">-->
+      <!--            <span>-->
+      <!--              总授权数:-->
+      <!--              <vab-count-->
+      <!--                :start-val="config2.startVal"-->
+      <!--                :end-val="config2.endVal"-->
+      <!--                :duration="config2.duration"-->
+      <!--                :separator="config2.separator"-->
+      <!--                :prefix="config2.prefix"-->
+      <!--                :suffix="config2.suffix"-->
+      <!--                :decimals="config2.decimals"-->
+      <!--              />-->
+      <!--            </span>-->
+      <!--          </div>-->
+      <!--        </el-card>-->
+      <!--      </el-col>-->
     </el-row>
   </div>
 </template>
@@ -119,9 +115,8 @@
   import VabChart from '@/plugins/echarts'
   import { dependencies, devDependencies } from '../../../package.json'
   import { getList } from '@/api/changeLog'
-  import { getNoticeList } from '@/api/notice'
-  import {getRepos, getStargazers} from '@/api/github'
-  import getFinishRate from '@/utils/finishRate'
+  import {getNoticeList} from '@/api/notice'
+  import {getFinishRate} from '@/utils/finishRate'
   export default {
     name: 'Index',
     components: {
@@ -433,7 +428,7 @@
                 { name: '浙江', value: 32318.85 },
                 { name: '山东', value: 45361.85, selected: true },
                 { name: '江苏', value: 49110.27 },
-                { name: '广东', value: 53210.28 },
+                {name: '广东', value: 53210.28},
               ],
             },
           ],
@@ -443,58 +438,58 @@
         reverse: true,
         activities: [],
         noticeList: [],
+        finishRate: 100,
         //其他信息
         userAgent: navigator.userAgent,
         //卡片图标
         iconList: [
           {
-            icon: 'video',
-            title: '视频播放器',
-            link: '/vab/player',
-            color: '#ffc069',
-          },
-          {
             icon: 'table',
-            title: '表格',
-            link: '/vab/table/comprehensiveTable',
+            title: '订单',
+            link: '/order',
             color: '#5cdbd3',
           },
           {
-            icon: 'laptop-code',
-            title: '源码',
-            link: 'https://github.com/chuzhixin/vue-admin-beautiful',
-            color: '#b37feb',
-          },
-          {
             icon: 'book',
-            title: '书籍',
-            link: '',
+            title: '资源',
+            link: '/resource',
             color: '#69c0ff',
           },
           {
-            icon: 'bullhorn',
-            title: '公告',
-            link: '',
-            color: '#ff85c0',
-          },
-          {
-            icon: 'gift',
-            title: '礼物',
-            link: '',
-            color: '#ffd666',
-          },
-
-          {
             icon: 'balance-scale-left',
-            title: '公平的世界',
-            link: '',
+            title: '排程',
+            link: '/scheduler',
             color: '#ff9c6e',
           },
           {
             icon: 'coffee',
-            title: '休息一下',
-            link: '',
+            title: '关于',
+            link: '/about',
             color: '#95de64',
+          },
+          {
+            icon: 'laptop-code',
+            title: 'GitHub仓库',
+            link: 'https://github.com/LancetHazel/vue-admin-beautiful/tree/yyy',
+            color: '#b37feb',
+          },
+          {
+            icon: 'list',
+            title: '菜单',
+            link: '/index',
+            color: '#ffc069',
+          },
+          {
+            icon: 'link',
+            title: '链接',
+            link: '/index',
+            color: '#ff85c0',
+          },
+          {
+            icon: 'video',
+            title: '附录',
+            link: '/index',
+            color: '#ffd666',
           },
         ],
       }
@@ -556,6 +551,7 @@
         this.activities = data
         const res = await getNoticeList()
         this.noticeList = res.data
+        this.finishRate = await getFinishRate()
         /* getRepos({
         token: "1061286824f978ea3cf98b7b8ea26fe27ba7cea1",
       }).then((res) => {

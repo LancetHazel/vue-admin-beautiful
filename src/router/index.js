@@ -73,21 +73,21 @@ export const asyncRoutes = [
 
   {
     path: '/order',
-    component: () => import('@/views/scheduler/OrderManagement'),
+    component: () => import('@/views/order/index'),
     name: 'Order',
     meta: {title: '订单管理', icon: 'box-open'},
   },
 
   {
     path: '/resource',
-    component: () => import('@/views/scheduler/ResourceManagement'),
+    component: () => import('@/views/resource/index'),
     name: 'Resource',
     meta: {title: '资源管理', icon: 'box-open'},
   },
 
   {
     path: '/scheduler',
-    component: () => import('@/views/scheduler/SchedulerCore'),
+    component: () => import('@/views/scheduler/index'),
     name: 'Scheduler',
     meta: {title: '排程', icon: 'box-open'},
   },
